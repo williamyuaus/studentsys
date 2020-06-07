@@ -1,7 +1,7 @@
 package com.integradev.studentsys.controller;
 
-import com.integradev.studentsys.model.Course;
-import com.integradev.studentsys.repository.CourseRepository;
+import com.integradev.studentsys.model.Student;
+import com.integradev.studentsys.repository.StudentRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,39 +15,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/courses")
-public class CourseController {
+@RequestMapping("/students")
+public class StudentController {
     @Autowired
-    private CourseRepository courseRepository;
+    private StudentRepository studentRepository;
 
     @GetMapping
-    public List<Course> list() {
-        return courseRepository.findAll();
+    public List<Student> list() {
+        return studentRepository.findAll();
     }
 
     @GetMapping
     @RequestMapping("{id}")
-    public Course get(@PathVariable Long id) {
-        return courseRepository.getOne(id);
+    public Student get(@PathVariable Long id) {
+        return studentRepository.getOne(id);
     }
 
     @PostMapping
-    public Course create(@RequestBody final Course course) {
-        return courseRepository.saveAndFlush(course);
+    public Student create(@RequestBody final Student student) {
+        return studentRepository.saveAndFlush(student);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id) {
-        courseRepository.deleteById(id);
+        studentRepository.deleteById(id);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public Course update(@PathVariable Long id, @RequestBody Course course) {
-        Course existingCourse = courseRepository.getOne(id);
-        BeanUtils.copyProperties(course, existingCourse, "id");
-        return courseRepository.saveAndFlush(existingCourse);
+    public Student update(@PathVariable Long id, @RequestBody Student student) {
+        Student existingStudent = studentRepository.getOne(id);
+        BeanUtils.copyProperties(student, existingStudent, "id");
+        return studentRepository.saveAndFlush(existingStudent);
     }
 }
