@@ -32,9 +32,20 @@ public class Student {
     public Student() {
     }
 
+    public Student(Long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public Student(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Student(Long id, List<Course> courses) {
+        this.id = id;
+        this.courses = courses;
     }
 
     public Long getId() {

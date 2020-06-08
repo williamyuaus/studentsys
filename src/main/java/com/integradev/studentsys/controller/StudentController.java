@@ -24,6 +24,10 @@ import java.util.List;
 public class StudentController {
     private StudentService studentService;
 
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
     @Autowired
     public void setStudentService(StudentService studentService) {
         this.studentService = studentService;

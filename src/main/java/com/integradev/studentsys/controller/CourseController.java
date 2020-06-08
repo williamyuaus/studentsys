@@ -1,9 +1,11 @@
 package com.integradev.studentsys.controller;
 
+import com.integradev.studentsys.exception.CourseNotFoundException;
 import com.integradev.studentsys.model.Course;
-import com.integradev.studentsys.repository.CourseRepository;
-import org.springframework.beans.BeanUtils;
+import com.integradev.studentsys.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,34 +23,46 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/courses")
 public class CourseController {
+    private CourseService courseService;
+
     @Autowired
-    private CourseRepository courseRepository;
+    public void setCourseService(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @GetMapping
-    public List<Course> list() {
-        return courseRepository.findAll();
+    public ResponseEntity<List<Course>> getAllCourses() {
+        List<Course> list = courseService.listCourses();
+        return new ResponseEntity<List<Course>>(list, HttpStatus.OK);
     }
 
     @GetMapping
     @RequestMapping("{id}")
-    public Course get(@PathVariable Long id) {
-        return courseRepository.getOne(id);
+    public ResponseEntity<Course> getCourse(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<Course>(courseService.findCourse(id), HttpStatus.OK);
+        } catch (CourseNotFoundException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping
-    public Course create(@RequestBody final Course course) {
-        return courseRepository.saveAndFlush(course);
+    public ResponseEntity<Course> addCourse(@RequestBody final Course course) {
+        return new ResponseEntity<Course>(courseService.addCourse(course), HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Long id) {
-        courseRepository.deleteById(id);
+    public void deleteCourse(@PathVariable Long id) {
+        courseService.deleteCourse(id);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public Course update(@PathVariable Long id, @RequestBody Course course) {
-        Course existingCourse = courseRepository.getOne(id);
-        BeanUtils.copyProperties(course, existingCourse, "id");
-        return courseRepository.saveAndFlush(existingCourse);
+    public ResponseEntity<Course> updateCourse(@PathVariable Long id, @RequestBody Course course) {
+        try {
+            return new ResponseEntity<Course>(courseService.updateCourse(id, course), HttpStatus.OK);
+        } catch (CourseNotFoundException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
+
 }
