@@ -1,4 +1,4 @@
-package com.integradev.studentsys;
+package com.integradev.studentsys.student.repository;
 
 import com.integradev.studentsys.model.Course;
 import com.integradev.studentsys.repository.CourseRepository;
