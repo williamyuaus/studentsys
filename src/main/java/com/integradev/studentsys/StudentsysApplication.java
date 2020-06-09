@@ -30,10 +30,10 @@ public class StudentsysApplication {
     @Bean
     public CommandLineRunner runner(){
         return args -> {
-            courseRepository.save(new Course("Python Class"));
-            courseRepository.save( new Course("Robotics Class"));
             studentRepository.save(new Student("Tom", "Jackson"));
             studentRepository.save(new Student("Ellen", "Lee"));
+            courseRepository.save(new Course("Python Class"));
+            courseRepository.save( new Course("Robotics Class"));
 
             for (Course course: courseRepository.findAll()){
                 log.info("The course is: " + course.toString());
