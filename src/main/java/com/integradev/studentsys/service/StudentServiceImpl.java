@@ -15,6 +15,10 @@ public class StudentServiceImpl implements StudentService{
     @Autowired
     private StudentRepository studentRepository;
 
+    /**
+     *
+     * @return List<Student></Student>
+     */
     @Override
     public List<Student> listStudents() {
         return studentRepository.findAll();

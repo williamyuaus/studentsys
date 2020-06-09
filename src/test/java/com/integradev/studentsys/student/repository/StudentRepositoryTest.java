@@ -18,14 +18,14 @@ public class StudentRepositoryTest {
     private TestEntityManager entityManager;
 
     @Autowired
-    private StudentRepository courseRepository;
+    private StudentRepository studentRepository;
 
     @Test
     public void saveStudent() {
-        Student course = new Student("Weibo", "Luo");
-        entityManager.persistAndFlush(course);
-
-        assertThat(course.getId()).isNotNull();
+        Student student = new Student("Weibo", "Luo");
+        entityManager.persistAndFlush(student);
+        // Validate the saved student
+        assertThat(student.getId()).isNotNull();
     }
 
     @Test
@@ -33,7 +33,9 @@ public class StudentRepositoryTest {
         entityManager.persistAndFlush(new Student("Weibo", "Luo"));
         entityManager.persistAndFlush(new Student("Albert", "Ding"));
 
-        courseRepository.deleteAll();
-        assertThat(courseRepository.findAll().isEmpty());
+        studentRepository.deleteAll();
+        
+        // Validate that the students has been deleted.
+        assertThat(studentRepository.findAll().isEmpty());
     }
 }

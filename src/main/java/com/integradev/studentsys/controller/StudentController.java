@@ -33,12 +33,23 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    /**
+     * Return all students in the database.
+     *
+     * @return      All students in the database.
+     */
     @GetMapping
     public ResponseEntity<List<Student>> getAllStudents() {
         List<Student> list = studentService.listStudents();
         return new ResponseEntity<List<Student>>(list, HttpStatus.OK);
     }
 
+    /**
+     * Returns the student with the specified id.
+     *
+     * @param id    ID of the student to retrieve.
+     * @return      The request Student if found.
+     */
     @GetMapping
     @RequestMapping("{id}")
     public ResponseEntity<Student> getStudent(@PathVariable Long id) {
@@ -49,6 +60,11 @@ public class StudentController {
         }
     }
 
+    /**
+     * Add a student to the database.
+     * @param student   The student to add to the database.
+     * @return          The added student.
+     */
     @PostMapping
     public ResponseEntity<Student> addStudent(@RequestBody final Student student) {
         return new ResponseEntity<Student>(studentService.addStudent(student), HttpStatus.OK);
@@ -59,6 +75,11 @@ public class StudentController {
         studentService.deleteStudent(id);
     }
 
+    /**
+     * Deletes the student with the specified id.
+     *
+     * @param id    The id of the student to delete.
+     */
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody Student student) {
         try {

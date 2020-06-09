@@ -24,7 +24,7 @@ public class CourseRepositoryTest {
     public void saveCourse() {
         Course course = new Course("Math");
         entityManager.persistAndFlush(course);
-
+        // Validate the saved course
         assertThat(course.getId()).isNotNull();
     }
 
@@ -34,6 +34,8 @@ public class CourseRepositoryTest {
         entityManager.persistAndFlush(new Course("Science"));
 
         courseRepository.deleteAll();
+
+        // Validate that the courses has been deleted.
         assertThat(courseRepository.findAll().isEmpty());
     }
 }

@@ -110,9 +110,9 @@ To deploy the backend system, you may use Maven to generate an executable JAR fi
 
 ## Authors
 
-* **William YU** - *Initial work* - [William YU](https://github.com/williamyuaus)
+* **William Yu** - *Initial work* - [William Yu](https://github.com/williamyuaus)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
 

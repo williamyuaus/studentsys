@@ -25,11 +25,14 @@ import static org.mockito.Mockito.doReturn;
 @SpringBootTest
 public class StudentServiceTest {
     /**
-     *
+     *  The service that we want to test.
      */
     @Autowired
     StudentService studentService;
 
+    /**
+     *  A mock version of the StudentRepository for use in the tests.
+     */
     @MockBean
     StudentRepository studentRepository;
 
