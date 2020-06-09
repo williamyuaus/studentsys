@@ -1,6 +1,6 @@
 package com.integradev.studentsys;
 
-import com.integradev.studentsys.controller.CourseController;
+import com.integradev.studentsys.controller.StudentController;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class StudentsysApplicationTests {
     @Autowired
-    private CourseController courseController;
+    private StudentController studentController;
 
     @Test
     void contextLoads() {
-        assertThat(courseController).isNotNull();
+        assertThat(studentController).isNotNull();
     }
 
 }
