@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.Set;
 
@@ -25,13 +26,8 @@ public class Course {
     @Column(name = "course_name", nullable = false)
     private String Name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "course_students",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
-    private Set<Student> students;
+    @OneToMany(mappedBy = "course")
+    Set<CourseRegistration> registrations;
 
     public Course() {
     }
@@ -56,12 +52,12 @@ public class Course {
         Name = name;
     }
 
-    public Set<Student> getStudents() {
-        return students;
+    public Set<CourseRegistration> getRegistrations() {
+        return registrations;
     }
 
-    public void setStudents(Set<Student> students) {
-        this.students = students;
+    public void setRegistrations(Set<CourseRegistration> registrations) {
+        this.registrations = registrations;
     }
 
     @Override

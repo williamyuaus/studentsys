@@ -9,7 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -25,9 +27,8 @@ public class Student {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @ManyToMany(mappedBy = "students")
-    @JsonIgnore
-    private List<Course> courses;
+    @OneToMany(mappedBy = "student")
+    Set<CourseRegistration> registrations;
 
     public Student() {
     }
@@ -43,10 +44,6 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public Student(Long id, List<Course> courses) {
-        this.id = id;
-        this.courses = courses;
-    }
 
     public Long getId() {
         return id;
@@ -72,11 +69,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public List<Course> getCourses() {
-        return courses;
+    public Set<CourseRegistration> getRegistrations() {
+        return registrations;
     }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+    public void setRegistrations(Set<CourseRegistration> registrations) {
+        this.registrations = registrations;
     }
 }
